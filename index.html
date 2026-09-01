@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Dan Jenson's personal website.">
+    <meta name="description" content="Dan Jenson researches Bayesian inference, neural processes, causal inference, and active inference.">
     <meta name="theme-color" content="#6750a4">
+    <link rel="canonical" href="https://danjenson.phd/">
     <title>Dan Jenson</title>
     <style>
       :root {
@@ -12,6 +13,14 @@
         font-family: Roboto, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: #1d1b20;
         background: #fffbfe;
+        --primary: #6750a4;
+        --primary-container: #eaddff;
+        --on-primary-container: #21005d;
+        --surface: #fffbfe;
+        --surface-container: #f3edf7;
+        --surface-container-high: #ece6f0;
+        --on-surface-variant: #49454f;
+        --outline: #79747e;
       }
 
       * {
@@ -21,80 +30,381 @@
       body {
         min-height: 100vh;
         margin: 0;
-        display: grid;
-        grid-template-rows: auto 1fr;
+        background: var(--surface);
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: 4px;
       }
 
       header {
         min-height: 64px;
-        padding: 0 24px;
+        padding: 0 max(24px, calc((100vw - 1040px) / 2));
         display: flex;
         align-items: center;
-        background: #f7f2fa;
-        box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
-        font-size: 1.25rem;
-        font-weight: 500;
+        border-bottom: 1px solid var(--surface-container-high);
+        font-size: 1.2rem;
+        font-weight: 600;
       }
 
-      main {
-        width: min(100% - 32px, 720px);
-        margin: auto;
-        padding: 48px 0;
+      main,
+      footer {
+        width: min(100% - 32px, 1040px);
+        margin-inline: auto;
       }
 
-      article {
-        padding: clamp(32px, 7vw, 64px);
-        border-radius: 28px;
-        background: #f3edf7;
-        box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
+      .profile {
+        padding: clamp(56px, 10vw, 112px) 0;
+        display: grid;
+        grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(40px, 8vw, 88px);
+      }
+
+      .portrait {
+        width: 100%;
+        display: block;
+        aspect-ratio: 1;
+        border: 10px solid var(--primary-container);
+        border-radius: 36px;
+        object-fit: cover;
+        box-shadow: 0 12px 32px rgb(33 0 93 / 16%);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--primary);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        margin: 0;
+        font-size: clamp(3.5rem, 9vw, 6.25rem);
         font-weight: 400;
-        line-height: 1.05;
-        letter-spacing: -0.03em;
+        line-height: 0.95;
+        letter-spacing: -0.055em;
       }
 
-      p {
-        max-width: 52ch;
+      .bio {
+        max-width: 60ch;
+        margin: 28px 0;
+        color: var(--on-surface-variant);
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        line-height: 1.65;
+      }
+
+      .interests {
         margin: 0 0 32px;
-        color: #49454f;
-        font-size: 1.125rem;
-        line-height: 1.6;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
       }
 
-      a {
-        min-height: 48px;
-        padding: 0 24px;
+      .interests li {
+        padding: 8px 13px;
+        border: 1px solid var(--outline);
+        border-radius: 12px;
+        color: var(--on-surface-variant);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .profile-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .profile-links a {
+        min-height: 46px;
+        padding: 0 22px;
         display: inline-flex;
         align-items: center;
-        border-radius: 24px;
-        color: #fff;
-        background: #6750a4;
-        font-weight: 500;
+        border-radius: 23px;
+        color: var(--on-primary-container);
+        background: var(--primary-container);
+        font-weight: 600;
         text-decoration: none;
       }
 
-      a:hover {
-        background: #7965af;
+      .profile-links a:first-child {
+        color: #ffffff;
+        background: var(--primary);
       }
 
-      a:focus-visible {
-        outline: 3px solid #1d1b20;
-        outline-offset: 3px;
+      .content-section {
+        padding: 64px 0 32px;
+      }
+
+      .section-heading {
+        margin-bottom: 28px;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(2.3rem, 5vw, 3.5rem);
+        font-weight: 400;
+        letter-spacing: -0.035em;
+      }
+
+      .section-count {
+        margin: 0;
+        color: var(--on-surface-variant);
+      }
+
+      .card-grid {
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        list-style: none;
+      }
+
+      .card {
+        height: 100%;
+        padding: clamp(24px, 4vw, 34px);
+        display: flex;
+        flex-direction: column;
+        border-radius: 24px;
+        background: var(--surface-container);
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .card:hover {
+        background: var(--surface-container-high);
+        transform: translateY(-2px);
+      }
+
+      .card h3 {
+        margin: 0 0 14px;
+        font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+        line-height: 1.35;
+      }
+
+      .card h3 a {
+        color: inherit;
+        text-decoration-color: rgb(103 80 164 / 35%);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+      }
+
+      .card h3 a:hover {
+        color: var(--primary);
+        text-decoration-color: currentcolor;
+      }
+
+      .authors,
+      .details {
+        margin: 0;
+        color: var(--on-surface-variant);
+        line-height: 1.55;
+      }
+
+      .details {
+        margin-top: auto;
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.9rem;
+      }
+
+      .venue {
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: var(--on-primary-container);
+        background: var(--primary-container);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      a.venue:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        margin-top: 72px;
+        padding: 32px 0 48px;
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        border-top: 1px solid var(--surface-container-high);
+        color: var(--on-surface-variant);
+        font-size: 0.9rem;
+      }
+
+      footer p {
+        margin: 0;
+      }
+
+      footer a {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      @media (max-width: 720px) {
+        .profile {
+          grid-template-columns: 1fr;
+        }
+
+        .portrait {
+          width: min(78vw, 320px);
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card {
+          transition: none;
+        }
       }
     </style>
   </head>
   <body>
     <header>danjenson.phd</header>
+
     <main>
-      <article>
-        <h1>Dan Jenson</h1>
-        <p>Welcome to my personal website. More information will be available here soon.</p>
-        <a href="https://github.com/danjenson">View my GitHub</a>
-      </article>
+      <section class="profile" aria-labelledby="profile-title">
+        <img class="portrait" src="passport-photo.jpg" alt="Portrait of Dan Jenson" width="800" height="800">
+        <div>
+          <p class="eyebrow">Machine learning researcher</p>
+          <h1 id="profile-title">Dan Jenson</h1>
+          <p class="bio">
+            I am interested in building probabilistic learning systems that represent uncertainty,
+            reason about interventions, and select informative actions. My work draws on Bayesian
+            inference, neural processes, causal inference, and active inference.
+          </p>
+          <ul class="interests" aria-label="Research interests">
+            <li>Bayesian Inference</li>
+            <li>Neural Processes</li>
+            <li>Causal Inference</li>
+            <li>Active Inference</li>
+          </ul>
+          <div class="profile-links">
+            <a href="https://scholar.google.com/citations?user=P-ze2q0AAAAJ&amp;hl=en">Google Scholar</a>
+            <a href="https://github.com/danjenson">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" aria-labelledby="papers-title">
+        <div class="section-heading">
+          <h2 id="papers-title">Papers</h2>
+          <p class="section-count">6 publications</p>
+        </div>
+        <ol class="card-grid">
+          <li>
+            <article class="card">
+              <h3><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=P-ze2q0AAAAJ&amp;citation_for_view=P-ze2q0AAAAJ:WF5omc3nYNoC">FM-DeepRV: Deep Learning for Bayesian Inference with Flow Matching</a></h3>
+              <p class="authors">Makkunda Sharma, Jhonathan Navott, <strong>Daniel Jenson</strong>, Elizaveta Semenova, and Seth Flaxman</p>
+              <p class="details"><a class="venue" href="https://spigmworkshop2026.github.io/">SPIGM</a> ICML Workshop, 2026</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://arxiv.org/html/2607.01082v1">When Context Compensates for Sparse Event History: AlphaEarth for Spatio-Temporal Point-Process Forecasting</a></h3>
+              <p class="authors">Yahya Aalaila, Mouad Elhamdi, Gerrit Großmann, <strong>Daniel Jenson</strong>, Elizaveta Semenova, and Sebastian Vollmer</p>
+              <p class="details"><a class="venue" href="https://strl-workshop.github.io/strl2026/">STRL</a> IJCAI-ECAI Workshop, 2026</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://proceedings.mlr.press/v300/jenson26a.html">Scalable Spatiotemporal Inference with Biased Scan Attention Transformer Neural Processes</a></h3>
+              <p class="authors"><strong>Daniel Jenson</strong>, Jhonathan Navott, Piotr Grynfelder, Mengyan Zhang, Makkunda Sharma, Elizaveta Semenova, and Seth Flaxman</p>
+              <p class="details"><span class="venue">AISTATS</span> PMLR, 2026</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://proceedings.mlr.press/v300/navott26a.html">DeepRV: Accelerating Spatiotemporal Inference with Pre-trained Neural Priors</a></h3>
+              <p class="authors">Jhonathan Navott, <strong>Daniel Jenson</strong>, Seth Flaxman, and Elizaveta Semenova</p>
+              <p class="details"><span class="venue">AISTATS</span> PMLR, 2026</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://arxiv.org/abs/2411.14119">Uncertainty-Aware Regression for Socio-Economic Estimation via Multi-View Remote Sensing</a></h3>
+              <p class="authors">Fan Yang, Sahoko Ishida, Mengyan Zhang, <strong>Daniel Jenson</strong>, Swapnil Mishra, Jhonathan Navott, and Seth Flaxman</p>
+              <p class="details"><span class="venue">arXiv</span> arXiv:2411.14119, 2024</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://www.nature.com/articles/s41562-020-0858-1">A Large-Scale Analysis of Racial Disparities in Police Stops Across the United States</a></h3>
+              <p class="authors">Emma Pierson, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, <strong>Daniel Jenson</strong>, Amy Shoemaker, Vignesh Ramachandran, Phoebe Barghouty, Cheryl Phillips, Ravi Shroff, and Sharad Goel</p>
+              <p class="details"><span class="venue">Nature Human Behaviour</span> 4, 736–745, 2020</p>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <section class="content-section" aria-labelledby="patents-title">
+        <div class="section-heading">
+          <h2 id="patents-title">Patents</h2>
+          <p class="section-count">5 patent families</p>
+        </div>
+        <ol class="card-grid">
+          <li>
+            <article class="card">
+              <h3><a href="https://patents.google.com/patent/US10990896B2/en">Systems and Methods for Incorporating Long-Term Patterns in Online Fraud Detection</a></h3>
+              <p class="authors"><strong>Daniel A. Jenson</strong></p>
+              <p class="details"><span class="venue">US Patent</span> 10,990,896 B2, 2021</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://patents.google.com/patent/US10432664B2/en">Systems and Methods for Identifying Illegitimate Activities Based on Graph-Based Distance Metrics</a></h3>
+              <p class="authors"><strong>Daniel A. Jenson</strong></p>
+              <p class="details"><span class="venue">US Patent</span> 10,432,664 B2, 2019</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://patents.google.com/patent/US10102387B2/en">Systems and Methods for Identifying Illegitimate Accounts Based on Clustering</a></h3>
+              <p class="authors"><strong>Daniel A. Jenson</strong></p>
+              <p class="details"><span class="venue">US Patent</span> 10,102,387 B2, 2018</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://patents.google.com/patent/US9754259B2/en">Systems and Methods for Identifying Illegitimate Activities Based on Historical Data</a></h3>
+              <p class="authors"><strong>Daniel A. Jenson</strong></p>
+              <p class="details"><span class="venue">US Patent</span> 9,754,259 B2, 2017</p>
+            </article>
+          </li>
+          <li>
+            <article class="card">
+              <h3><a href="https://patents.google.com/patent/US9665695B2/en">Systems and Methods for Ranking Rules That Identify Potentially Illegitimate Activities</a></h3>
+              <p class="authors"><strong>Daniel A. Jenson</strong></p>
+              <p class="details"><span class="venue">US Patent</span> 9,665,695 B2, 2017</p>
+            </article>
+          </li>
+        </ol>
+      </section>
     </main>
+
+    <footer>
+      <p>© Dan Jenson</p>
+      <p>References deduplicated from <a href="https://scholar.google.com/citations?user=P-ze2q0AAAAJ&amp;hl=en">Google Scholar</a>.</p>
+    </footer>
   </body>
 </html>
