@@ -4,23 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Dan Jenson researches Bayesian inference, neural processes, causal inference, and active inference.">
-    <meta name="theme-color" content="#6750a4">
+    <meta name="theme-color" content="#1f5a4a">
     <link rel="canonical" href="https://danjenson.phd/">
     <title>Dan Jenson</title>
     <style>
       :root {
         color-scheme: light;
         font-family: Roboto, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: #1d1b20;
-        background: #fffbfe;
-        --primary: #6750a4;
-        --primary-container: #eaddff;
-        --on-primary-container: #21005d;
-        --surface: #fffbfe;
-        --surface-container: #f3edf7;
-        --surface-container-high: #ece6f0;
-        --on-surface-variant: #49454f;
-        --outline: #79747e;
+        color: #17211d;
+        background: #f4f7f5;
+        --primary: #1f5a4a;
+        --primary-container: #d1e8df;
+        --on-primary-container: #0b2f27;
+        --secondary: #3f6c7a;
+        --cedar: #9a5b3d;
+        --surface: #f4f7f5;
+        --surface-container: #e5ece8;
+        --surface-container-high: #dbe5df;
+        --on-surface-variant: #46544d;
+        --outline: #6f7e76;
       }
 
       * {
@@ -30,22 +32,12 @@
       body {
         min-height: 100vh;
         margin: 0;
-        background: var(--surface);
+        background: linear-gradient(180deg, #e9f1ed 0, var(--surface) 30rem);
       }
 
       a:focus-visible {
         outline: 3px solid var(--primary);
         outline-offset: 4px;
-      }
-
-      header {
-        min-height: 64px;
-        padding: 0 max(24px, calc((100vw - 1040px) / 2));
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid var(--surface-container-high);
-        font-size: 1.2rem;
-        font-weight: 600;
       }
 
       main,
@@ -55,26 +47,35 @@
       }
 
       .profile {
-        padding: clamp(56px, 10vw, 112px) 0;
-        display: grid;
-        grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+        padding: clamp(56px, 10vw, 112px) 0 24px;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: clamp(40px, 8vw, 88px);
       }
 
       .portrait {
-        width: 100%;
+        width: 250px;
+        height: 250px;
+        margin-bottom: 32px;
         display: block;
-        aspect-ratio: 1;
-        border: 10px solid var(--primary-container);
-        border-radius: 36px;
+        border: 6px solid var(--primary-container);
+        border-radius: 24px;
         object-fit: cover;
-        box-shadow: 0 12px 32px rgb(33 0 93 / 16%);
+        box-shadow: 0 12px 32px rgb(11 47 39 / 16%);
+      }
+
+      .profile-introduction {
+        max-width: 760px;
+        text-align: center;
+      }
+
+      .profile-extras {
+        margin-top: 28px;
       }
 
       .eyebrow {
         margin: 0 0 12px;
-        color: var(--primary);
+        color: var(--cedar);
         font-size: 0.85rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -91,10 +92,11 @@
 
       .bio {
         max-width: 60ch;
-        margin: 28px 0;
+        margin: 28px 0 0;
         color: var(--on-surface-variant);
         font-size: clamp(1.1rem, 2vw, 1.3rem);
         line-height: 1.65;
+        text-align: left;
       }
 
       .interests {
@@ -102,6 +104,7 @@
         padding: 0;
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
         list-style: none;
       }
@@ -118,6 +121,7 @@
       .profile-links {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 12px;
       }
 
@@ -138,6 +142,11 @@
         background: var(--primary);
       }
 
+      .profile-links a:last-child {
+        color: #ffffff;
+        background: var(--secondary);
+      }
+
       .content-section {
         padding: 64px 0 32px;
       }
@@ -155,11 +164,6 @@
         font-size: clamp(2.3rem, 5vw, 3.5rem);
         font-weight: 400;
         letter-spacing: -0.035em;
-      }
-
-      .section-count {
-        margin: 0;
-        color: var(--on-surface-variant);
       }
 
       .card-grid {
@@ -255,12 +259,9 @@
       }
 
       @media (max-width: 720px) {
-        .profile {
-          grid-template-columns: 1fr;
-        }
-
         .portrait {
-          width: min(78vw, 320px);
+          width: 200px;
+          height: 200px;
         }
 
         .card-grid {
@@ -280,19 +281,22 @@
     </style>
   </head>
   <body>
-    <header>danjenson.phd</header>
-
     <main>
       <section class="profile" aria-labelledby="profile-title">
         <img class="portrait" src="passport-photo.jpg" alt="Portrait of Dan Jenson" width="800" height="800">
-        <div>
+        <div class="profile-introduction">
           <p class="eyebrow">Machine learning researcher</p>
           <h1 id="profile-title">Dan Jenson</h1>
           <p class="bio">
-            I am interested in building probabilistic learning systems that represent uncertainty,
-            reason about interventions, and select informative actions. My work draws on Bayesian
-            inference, neural processes, causal inference, and active inference.
+            I am a DPhil student in Computer Science at the University of Oxford, where I develop
+            probabilistic machine-learning systems that represent uncertainty, reason about
+            interventions, and select informative actions. My research spans Bayesian inference,
+            neural processes, causal inference, and active inference. I previously earned an M.S.
+            in Computational Social Science from Stanford University and an M.S. in Computer
+            Science, specializing in Machine Learning, from Georgia Tech.
           </p>
+        </div>
+        <div class="profile-extras">
           <ul class="interests" aria-label="Research interests">
             <li>Bayesian Inference</li>
             <li>Neural Processes</li>
@@ -309,7 +313,6 @@
       <section class="content-section" aria-labelledby="papers-title">
         <div class="section-heading">
           <h2 id="papers-title">Papers</h2>
-          <p class="section-count">6 publications</p>
         </div>
         <ol class="card-grid">
           <li>
@@ -360,7 +363,6 @@
       <section class="content-section" aria-labelledby="patents-title">
         <div class="section-heading">
           <h2 id="patents-title">Patents</h2>
-          <p class="section-count">5 patent families</p>
         </div>
         <ol class="card-grid">
           <li>
@@ -404,7 +406,6 @@
 
     <footer>
       <p>© Dan Jenson</p>
-      <p>References deduplicated from <a href="https://scholar.google.com/citations?user=P-ze2q0AAAAJ&amp;hl=en">Google Scholar</a>.</p>
     </footer>
   </body>
 </html>
